@@ -73,12 +73,12 @@
         }
         .btn-print {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #2980b9;
             color: white;
             border: none;
             border-radius: 6px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             margin-top: 15px;
@@ -96,30 +96,51 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
+            background-color: #fff;
         }
         .result-table th, .result-table td {
-            border: 1px solid #ddd;
-            padding: 8px 12px;
+            border: 1px solid #dcdde1;
+            padding: 10px 14px;
             text-align: left;
         }
-        .result-table th {
-            background-color: #eaecee;
-        }
-        .total-row {
+        .section-header {
+            background-color: #e5e8e8 !important;
+            color: #2c3e50;
             font-weight: bold;
-            background-color: #d4efdf;
+            font-size: 16px;
+        }
+        .gross-row {
+            font-weight: bold;
+            background-color: #d4efdf !important;
+            color: #1e8449;
+        }
+        .deduct-row {
+            font-weight: bold;
+            background-color: #fadbd8 !important;
+            color: #943126;
+        }
+        .net-row {
+            font-weight: bold;
+            background-color: #abebc6 !important;
+            color: #145a32;
+            font-size: 17px;
         }
 
-        /* প্রিন্ট ফ্রেন্ডলি স্টাইল */
+        /* প্রিন্ট ও PDF সেভ করার সময় কালারফুল ব্যাকগ্রাউন্ড রাখার জন্য */
         @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
             body {
                 background-color: #fff;
                 padding: 0;
+                margin: 0;
             }
             .calculator-card {
                 box-shadow: none;
                 border: none;
-                padding: 0;
+                padding: 10px;
                 max-width: 100%;
             }
             .form-group, .btn-calc, .btn-print, h2 {
@@ -130,6 +151,23 @@
                 border-top: none;
                 padding-top: 0;
             }
+            .author-info {
+                background-color: #ebf5fb !important;
+                border: 1px dashed #2980b9 !important;
+                margin-bottom: 15px;
+            }
+            .section-header {
+                background-color: #e5e8e8 !important;
+            }
+            .gross-row {
+                background-color: #d4efdf !important;
+            }
+            .deduct-row {
+                background-color: #fadbd8 !important;
+            }
+            .net-row {
+                background-color: #abebc6 !important;
+            }
         }
     </style>
 </head>
@@ -139,7 +177,7 @@
 
     <div class="author-info">
         <strong>প্রস্তুতকারক:</strong> মোঃ মানিক<br>
-        গাড়ি চালক, রাজশাহী মেডিকেল কলেজ হাসপাতাল, রাজশাহী।<br>
+        গাড়ি চালক, রাজশাহী মেডিকেল কলেজ হাসপাতাল, রাজশাহী<br>
         <strong>মোবাইল:</strong> ০১৭২৯-৮১৫২৯১
     </div>
 
@@ -178,63 +216,63 @@
     <div class="result-box" id="resultBox">
         <h3 style="text-align:center; color:#2c3e50; margin-bottom:15px;">বেতনের বিবরণী</h3>
         <table class="result-table">
-            <tr>
+            <tr class="section-header">
                 <th colspan="2">দাবি অংশ (ভাতাদি)</th>
             </tr>
             <tr>
                 <td>মূল বেতন:</td>
-                <td id="resBasic">০.০০</td>
+                <td id="resBasic">০.০০ টাকা</td>
             </tr>
             <tr>
                 <td>বাড়ি ভাড়া ভাতা:</td>
-                <td id="resHR">০.০০</td>
+                <td id="resHR">০.০০ টাকা</td>
             </tr>
             <tr>
                 <td>চিকিৎসা ভাতা:</td>
-                <td id="resMedical">০.০০</td>
+                <td id="resMedical">০.০০ টাকা</td>
             </tr>
             <tr>
                 <td>টিফিন ভাতা:</td>
-                <td id="resTiffin">০.০০</td>
+                <td id="resTiffin">০.০০ টাকা</td>
             </tr>
             <tr>
                 <td>যাতায়াত ভাতা:</td>
-                <td id="resConveyance">০.০০</td>
+                <td id="resConveyance">০.০০ টাকা</td>
             </tr>
             <tr>
                 <td>বিশেষ সুবিধা (১৫%):</td>
-                <td id="resSpecial">০.০০</td>
+                <td id="resSpecial">০.০০ টাকা</td>
             </tr>
             <tr>
                 <td>শিক্ষা সহায়কা ভাতা:</td>
-                <td id="resEducation">০.০০</td>
+                <td id="resEducation">০.০০ টাকা</td>
             </tr>
-            <tr class="total-row">
+            <tr class="gross-row">
                 <td>মোট দাবি (Gross Salary):</td>
-                <td id="resGross">০.০০</td>
+                <td id="resGross">০.০০ টাকা</td>
             </tr>
-            <tr>
+            <tr class="section-header">
                 <th colspan="2">কর্তন অংশ</th>
             </tr>
             <tr>
                 <td>জিপিএফ (GPF):</td>
-                <td id="resGPF">০.০০</td>
+                <td id="resGPF">০.০০ টাকা</td>
             </tr>
             <tr>
                 <td>কল্যাণ তহবিল (১%):</td>
-                <td id="resKallyan">০.০০</td>
+                <td id="resKallyan">০.০০ টাকা</td>
             </tr>
             <tr>
                 <td>স্ট্যাম্প ডিউটি:</td>
-                <td id="resStamp">১০.০০</td>
+                <td id="resStamp">১০.০০ টাকা</td>
             </tr>
-            <tr style="font-weight:bold; background-color:#fadbd8;">
+            <tr class="deduct-row">
                 <td>মোট কর্তন:</td>
-                <td id="resDeduction">০.০০</td>
+                <td id="resDeduction">০.০০ টাকা</td>
             </tr>
-            <tr class="total-row" style="background-color:#abebc6; font-size:17px;">
+            <tr class="net-row">
                 <td>নীট প্রদেয় বেতন (হাতে পাবেন):</td>
-                <td id="resNet">০.০০</td>
+                <td id="resNet">০.০০ টাকা</td>
             </tr>
         </table>
 
@@ -254,7 +292,7 @@ function calculateSalary() {
         return;
     }
 
-    // অনুচ্ছেদ ১৭ (৭) অনুযায়ী বাড়ি ভাড়া হিসাব
+    // বাড়ি ভাড়া হিসেব
     let hr = 0;
 
     if (basic <= 9700) {
@@ -291,31 +329,23 @@ function calculateSalary() {
         }
     }
 
-    // অন্যান্য নির্দিষ্ট ভাতা
     let medical = 1500;
     let tiffin = 200;
     let conveyance = 300;
-
-    // বিশেষ সুবিধা (১৫% বা সর্বনিম্ন ১৫০০ টাকা)
     let special = Math.max(basic * 0.15, 1500);
 
-    // শিক্ষা ভাতা
     let education = 0;
     if (children === 1) education = 500;
     else if (children >= 2) education = 1000;
 
-    // মোট দাবি (Gross Salary)
     let gross = basic + hr + medical + tiffin + conveyance + special + education;
 
-    // কর্তন
     let kallyan = basic * 0.01;
     let stamp = 10;
     let totalDeduction = gpf + kallyan + stamp;
 
-    // নিট বেতন
     let net = gross - totalDeduction;
 
-    // আউটপুট পেজে বসানো
     document.getElementById('resBasic').innerText = basic.toFixed(2) + " টাকা";
     document.getElementById('resHR').innerText = hr.toFixed(2) + " টাকা";
     document.getElementById('resMedical').innerText = medical.toFixed(2) + " টাকা";
