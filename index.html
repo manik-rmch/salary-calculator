@@ -126,7 +126,6 @@
             font-size: 17px;
         }
 
-        /* প্রিন্ট ও PDF সেভ করার সময় কালারফুল ব্যাকগ্রাউন্ড রাখার জন্য */
         @media print {
             * {
                 -webkit-print-color-adjust: exact !important;
@@ -185,7 +184,7 @@
     
     <div class="form-group">
         <label for="basicPay">মূল বেতন (Basic Pay):</label>
-        <input type="number" id="basicPay" placeholder="যেমন: 10190 বা 9770" value="">
+        <input type="text" id="basicPay" placeholder="যেমন: ১০১৯০ বা ৯৭৭০" oninput="this.value = convertToBanglaDigit(this.value)">
     </div>
 
     <div class="form-group">
@@ -207,8 +206,16 @@
     </div>
 
     <div class="form-group">
+        <label for="washing">ধোলাই ভাতা (ইউনিফর্ম প্রাপ্তদের জন্য):</label>
+        <select id="washing">
+            <option value="0" selected>প্রযোজ্য নয় (০ টাকা)</option>
+            <option value="100">প্রযোজ্য (১০০ টাকা)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
         <label for="gpf">জিপিএফ কর্তন (টাকা):</label>
-        <input type="number" id="gpf" placeholder="জিপিএফ চাঁদা (যেমন: 0 বা 2400)" value="">
+        <input type="text" id="gpf" placeholder="জিপিএফ চাঁদা (যেমন: ০ বা ২৪০০)" oninput="this.value = convertToBanglaDigit(this.value)">
     </div>
 
     <button class="btn-calc" onclick="calculateSalary()">বেতন হিসাব করুন</button>
@@ -247,6 +254,10 @@
                 <td>শিক্ষা সহায়কা ভাতা:</td>
                 <td id="resEducation">০.০০ টাকা</td>
             </tr>
+            <tr>
+                <td>ধোলাই ভাতা:</td>
+                <td id="resWashing">০.০০ টাকা</td>
+            </tr>
             <tr class="gross-row">
                 <td>মোট দাবি (Gross Salary):</td>
                 <td id="resGross">০.০০ টাকা</td>
@@ -281,18 +292,46 @@
 </div>
 
 <script>
+// ইংরেজি সংখ্যাকে বাংলা সংখ্যায় রূপান্তর
+function convertToBanglaDigit(str) {
+    if (str === null || str === undefined) return '';
+    const banglaDigits = {'0':'০', '1':'১', '2':'২', '3':'৩', '4':'৪', '5':'৫', '6':'৬', '7':'৭', '8':'৮', '9':'৯'};
+    return str.toString().replace(/[0-9]/g, function(w) {
+        return banglaDigits[w];
+    });
+}
+
+// বাংলা সংখ্যাকে ইংরেজি সংখ্যায় রূপান্তর (গাণিতিক হিসাবের জন্য)
+function convertToEngDigit(str) {
+    if (!str) return '0';
+    const engDigits = {'০':'0', '১':'1', '২':'2', '৩':'3', '৪':'4', '৫':'5', '৬':'6', '৭':'7', '৮':'8', '৯':'9'};
+    return str.toString().replace(/[০-৯]/g, function(w) {
+        return engDigits[w];
+    });
+}
+
+// ফরমেটেড সংখ্যা তৈরি করার ফাংশন
+function formatBanglaAmount(amount) {
+    let formatted = amount.toFixed(2); // ২ দশমিক ঘর পর্যন্ত
+    return convertToBanglaDigit(formatted) + " টাকা";
+}
+
 function calculateSalary() {
-    let basic = parseFloat(document.getElementById('basicPay').value) || 0;
+    let rawBasic = document.getElementById('basicPay').value;
+    let rawGpf = document.getElementById('gpf').value;
+
+    let basic = parseFloat(convertToEngDigit(rawBasic)) || 0;
     let location = document.getElementById('location').value;
     let children = parseInt(document.getElementById('children').value) || 0;
-    let gpf = parseFloat(document.getElementById('gpf').value) || 0;
+    let washing = parseFloat(document.getElementById('washing').value) || 0;
+    let gpf = parseFloat(convertToEngDigit(rawGpf)) || 0;
 
     if (basic <= 0) {
         alert("অনুগ্রহ করে সঠিক মূল বেতন লিখুন।");
         return;
     }
 
-    // বাড়ি ভাড়া হিসেব
+    // বাড়ি ভাড়া হিসাব
     let hr = 0;
 
     if (basic <= 9700) {
@@ -338,7 +377,7 @@ function calculateSalary() {
     if (children === 1) education = 500;
     else if (children >= 2) education = 1000;
 
-    let gross = basic + hr + medical + tiffin + conveyance + special + education;
+    let gross = basic + hr + medical + tiffin + conveyance + special + education + washing;
 
     let kallyan = basic * 0.01;
     let stamp = 10;
@@ -346,20 +385,22 @@ function calculateSalary() {
 
     let net = gross - totalDeduction;
 
-    document.getElementById('resBasic').innerText = basic.toFixed(2) + " টাকা";
-    document.getElementById('resHR').innerText = hr.toFixed(2) + " টাকা";
-    document.getElementById('resMedical').innerText = medical.toFixed(2) + " টাকা";
-    document.getElementById('resTiffin').innerText = tiffin.toFixed(2) + " টাকা";
-    document.getElementById('resConveyance').innerText = conveyance.toFixed(2) + " টাকা";
-    document.getElementById('resSpecial').innerText = special.toFixed(2) + " টাকা";
-    document.getElementById('resEducation').innerText = education.toFixed(2) + " টাকা";
-    document.getElementById('resGross').innerText = gross.toFixed(2) + " টাকা";
+    // ফলাফলের সকল ঘর সম্পূর্ণ বাংলায় প্রদর্শন
+    document.getElementById('resBasic').innerText = formatBanglaAmount(basic);
+    document.getElementById('resHR').innerText = formatBanglaAmount(hr);
+    document.getElementById('resMedical').innerText = formatBanglaAmount(medical);
+    document.getElementById('resTiffin').innerText = formatBanglaAmount(tiffin);
+    document.getElementById('resConveyance').innerText = formatBanglaAmount(conveyance);
+    document.getElementById('resSpecial').innerText = formatBanglaAmount(special);
+    document.getElementById('resEducation').innerText = formatBanglaAmount(education);
+    document.getElementById('resWashing').innerText = formatBanglaAmount(washing);
+    document.getElementById('resGross').innerText = formatBanglaAmount(gross);
 
-    document.getElementById('resGPF').innerText = gpf.toFixed(2) + " টাকা";
-    document.getElementById('resKallyan').innerText = kallyan.toFixed(2) + " টাকা";
-    document.getElementById('resStamp').innerText = stamp.toFixed(2) + " টাকা";
-    document.getElementById('resDeduction').innerText = totalDeduction.toFixed(2) + " টাকা";
-    document.getElementById('resNet').innerText = net.toFixed(2) + " টাকা";
+    document.getElementById('resGPF').innerText = formatBanglaAmount(gpf);
+    document.getElementById('resKallyan').innerText = formatBanglaAmount(kallyan);
+    document.getElementById('resStamp').innerText = formatBanglaAmount(stamp);
+    document.getElementById('resDeduction').innerText = formatBanglaAmount(totalDeduction);
+    document.getElementById('resNet').innerText = formatBanglaAmount(net);
 
     document.getElementById('resultBox').style.display = 'block';
 }
