@@ -183,9 +183,9 @@
     <h2>স্যালারি ক্যালকুলেটর</h2>
     
     <div class="form-group">
-        <label for="basicPay">মূল বেতন (Basic Pay):</label>
-        <input type="text" id="basicPay" placeholder="যেমন: ১০১৯০ বা ৯৭৭০" oninput="this.value = convertToBanglaDigit(this.value)">
-    </div>
+    <label for="basicPay">মূল বেতন (Basic Pay):</label>
+    <input type="text" id="basicPay" inputmode="numeric" placeholder="যেমন: ১০১৯০ বা ৯৭৭০" oninput="this.value = convertToBanglaDigit(this.value)">
+</div>
 
     <div class="form-group">
         <label for="location">কর্মস্থলের এলাকা (বাড়ি ভাড়ার জন্য):</label>
@@ -214,9 +214,9 @@
     </div>
 
     <div class="form-group">
-        <label for="gpf">জিপিএফ কর্তন (টাকা):</label>
-        <input type="text" id="gpf" placeholder="জিপিএফ চাঁদা (যেমন: ০ বা ২৪০০)" oninput="this.value = convertToBanglaDigit(this.value)">
-    </div>
+    <label for="gpf">জিপিএফ কর্তন (টাকা):</label>
+    <input type="text" id="gpf" inputmode="numeric" placeholder="জিপিএফ চাঁদা (যেমন: ০ বা ২৪০০)" oninput="this.value = convertToBanglaDigit(this.value)">
+</div>
 
     <button class="btn-calc" onclick="calculateSalary()">বেতন হিসাব করুন</button>
 
