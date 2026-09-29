@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Govt_Salary_Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'SolaimanLipi', 'Kalpurush', Arial, sans-serif;
@@ -12,6 +13,32 @@
             padding: 20px;
             color: #333;
         }
+           /* হোম বাটন স্টাইল */
+    .top-bar {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: #e2e8f0;
+      color: #334155;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-home:hover {
+      background: #4f46e5;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
         .calculator-card {
             max-width: 650px;
             margin: 0 auto;
@@ -127,52 +154,28 @@
         }
 
         @media print {
-            * {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-            body {
-                background-color: #fff;
-                padding: 0;
-                margin: 0;
-            }
-            .calculator-card {
-                box-shadow: none;
-                border: none;
-                padding: 10px;
-                max-width: 100%;
-            }
-            .form-group, .btn-calc, .btn-print, h2 {
-                display: none !important;
-            }
-            .result-box {
-                display: block !important;
-                border-top: none;
-                padding-top: 0;
-            }
-            .author-info {
-                background-color: #ebf5fb !important;
-                border: 1px dashed #2980b9 !important;
-                margin-bottom: 15px;
-            }
-            .section-header {
-                background-color: #e5e8e8 !important;
-            }
-            .gross-row {
-                background-color: #d4efdf !important;
-            }
-            .deduct-row {
-                background-color: #fadbd8 !important;
-            }
-            .net-row {
-                background-color: #abebc6 !important;
-            }
+          * { print-color-adjust: exact !important; }
+          body { background-color: rgb(255, 255, 255); padding: 0px; margin: 0px; }
+          .calculator-card { box-shadow: none; border: none; padding: 10px; max-width: 100%; }
+          .form-group, .btn-calc, .btn-print, .btn-home, h2 { display: none !important; }
+          .result-box { border-top: none; padding-top: 0px; display: block !important; }
+          .author-info { margin-bottom: 15px; background-color: rgb(235, 245, 251) !important; border: 1px dashed rgb(41, 128, 185) !important; }
+          .section-header { background-color: rgb(229, 232, 232) !important; }
+          .gross-row { background-color: rgb(212, 239, 223) !important; }
+          .deduct-row { background-color: rgb(250, 219, 216) !important; }
+          .net-row { background-color: rgb(171, 235, 198) !important; }
         }
     </style>
 </head>
 <body>
 
 <div class="calculator-card">
+	<!-- হোম বাটন -->
+    <div class="top-bar">
+      <a href="https://manik-rmch.github.io/dashboard" class="btn-home">
+        <i class="fa-solid fa-house"></i> হোম
+      </a>
+    </div>
 
     <div class="author-info">
         <strong>প্রস্তুতকারক:</strong> মোঃ মানিক<br>
