@@ -1,420 +1,294 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Govt_Salary_Calculator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'SolaimanLipi', 'Kalpurush', Arial, sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-           /* হোম বাটন স্টাইল */
-    .top-bar {
-      display: flex;
-      justify-content: flex-start;
-      margin-bottom: 15px;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>৮ম বেতনস্কেল ২০১৫: হাতে পাবেন কত</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--ink:#1e293b;--mute:#64748b;--line:#e2e8f0;--card:#fff;--ind:#4f46e5;--tea:#0d9488;--p1:#2563eb;--p2:#0d9488;--p3:#d97706;--p4:#7c3aed;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:linear-gradient(160deg,#eef2ff 0%,#f0fdfa 55%,#fefce8 100%) fixed;color:var(--ink);font:400 16px/1.65 "Noto Sans Bengali",system-ui,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:18px 16px 48px}
 
-    .btn-home {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      background: #e2e8f0;
-      color: #334155;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 600;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
+/* হোম বাটন স্টাইল */
+.top-bar{display:flex;justify-content:flex-start;margin-bottom:15px}
+.btn-home{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#e2e8f0;color:#334155;text-decoration:none;font-size:15px;font-weight:600;border-radius:8px;transition:all .3s ease}
+.btn-home:hover{background:#4f46e5;color:#ffffff;transform:translateY(-2px)}
 
-    .btn-home:hover {
-      background: #4f46e5;
-      color: #ffffff;
-      transform: translateY(-2px);
-    }
-        .calculator-card {
-            max-width: 650px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .author-info {
-            text-align: center;
-            background-color: #ebf5fb;
-            border: 1px dashed #2980b9;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            color: #2c3e50;
-            line-height: 1.6;
-        }
-        .author-info strong {
-            color: #1a5276;
-            font-size: 15px;
-        }
-        h2 {
-            text-align: center;
-            color: #1a5276;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-        }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 15px;
-        }
-        .btn-calc {
-            width: 100%;
-            padding: 12px;
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .btn-calc:hover {
-            background-color: #219150;
-        }
-        .btn-print {
-            width: 100%;
-            padding: 12px;
-            background-color: #2980b9;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-        .btn-print:hover {
-            background-color: #1f618d;
-        }
-        .result-box {
-            margin-top: 25px;
-            display: none;
-            border-top: 2px dashed #bbb;
-            padding-top: 15px;
-        }
-        .result-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            background-color: #fff;
-        }
-        .result-table th, .result-table td {
-            border: 1px solid #dcdde1;
-            padding: 10px 14px;
-            text-align: left;
-        }
-        .section-header {
-            background-color: #e5e8e8 !important;
-            color: #2c3e50;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .gross-row {
-            font-weight: bold;
-            background-color: #d4efdf !important;
-            color: #1e8449;
-        }
-        .deduct-row {
-            font-weight: bold;
-            background-color: #fadbd8 !important;
-            color: #943126;
-        }
-        .net-row {
-            font-weight: bold;
-            background-color: #abebc6 !important;
-            color: #145a32;
-            font-size: 17px;
-        }
+.hero{background:linear-gradient(120deg,#4338ca 0%,#0d9488 100%);color:#fff;border-radius:16px;padding:22px 22px;margin-bottom:18px;box-shadow:0 10px 30px rgba(67,56,202,.25)}
+h1{font:700 clamp(22px,4.6vw,34px)/1.3 "Noto Serif Bengali",Georgia,serif;margin:0 0 6px;color:#fff}
+.sub{margin:0;color:#e0e7ff;font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--ind);border-radius:14px;padding:18px;margin-bottom:18px;box-shadow:0 4px 16px rgba(15,23,42,.06)}
+.c-in{border-top-color:var(--ind)}.c-fix{border-top-color:#059669}.c-ph{border-top-color:var(--tea)}.c-claim{border-top-color:var(--p1)}.c-chip{border-top-color:var(--p3)}
+h2{font:700 19px/1.3 "Noto Serif Bengali",Georgia,serif;margin:0 0 12px;color:#3730a3}
+.c-fix h2{color:#047857}.c-ph h2{color:#0f766e}.c-claim h2{color:#1d4ed8}.c-chip h2{color:#b45309}
+h3{font:700 17px/1.3 "Noto Serif Bengali",Georgia,serif;margin:22px 0 10px;color:#1d4ed8}
+label{display:block;font-size:14px;font-weight:600;margin:0 0 4px;color:#334155}
+select,input{width:100%;padding:11px 10px;border:1.5px solid #c7d2fe;border-radius:10px;background:#fff;color:var(--ink);font:inherit}
+select:focus,input:focus{outline:3px solid #c7d2fe;border-color:var(--ind)}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.row .wide{grid-column:span 2}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.chk{display:flex!important;gap:10px;align-items:center;font-weight:500!important;background:#f8fafc;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;margin:0!important;cursor:pointer;font-size:14px!important}
+.chk input{width:auto;accent-color:var(--ind)}
+.chk:has(input:checked){background:#eef2ff;border-color:var(--ind)}
+.hint{font-size:13px;color:var(--mute);margin-top:6px}
+.err{color:#be123c;font-weight:600;margin-top:8px}
+.steps{list-style:none;margin:0;padding:0}
+.steps li{padding:9px 0;border-bottom:1px dashed #a7f3d0;display:flex;justify-content:space-between;gap:12px}
+.steps li span:last-child{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap;color:#047857}
+.result{margin-top:14px;padding:16px;background:linear-gradient(120deg,#ecfdf5,#d1fae5);border-radius:12px;border:1px solid #a7f3d0}
+.result b{font:700 30px/1.2 "Noto Serif Bengali",Georgia,serif;color:#047857}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:right}
+th:first-child,td:first-child{text-align:left}
+#phase th{background:#0f766e;color:#fff}
+#phase tr.ph0 td:first-child{border-left:5px solid var(--p1)}#phase tr.ph1 td:first-child{border-left:5px solid var(--p2)}#phase tr.ph2 td:first-child{border-left:5px solid var(--p3)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{padding:3px 10px;border:1px solid #fde68a;background:#fffbeb;border-radius:99px;font-size:13px}
+.chip.on{background:#d97706;color:#fff;border-color:#d97706;font-weight:700}
+.note{padding:12px 14px;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:10px;font-size:14px}
+.head-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.head-row h2{margin:0}
+.btn-print{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:linear-gradient(120deg,#4f46e5,#7c3aed);color:#fff;border:0;border-radius:10px;font:600 15px "Noto Sans Bengali",system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 12px rgba(79,70,229,.35)}
+.btn-print:hover{transform:translateY(-2px)}
 
-        @media print {
-          * { print-color-adjust: exact !important; }
-          body { background-color: rgb(255, 255, 255); padding: 0px; margin: 0px; }
-          .calculator-card { box-shadow: none; border: none; padding: 10px; max-width: 100%; }
-          .form-group, .btn-calc, .btn-print, .btn-home, h2 { display: none !important; }
-          .result-box { border-top: none; padding-top: 0px; display: block !important; }
-          .author-info { margin-bottom: 15px; background-color: rgb(235, 245, 251) !important; border: 1px dashed rgb(41, 128, 185) !important; }
-          .section-header { background-color: rgb(229, 232, 232) !important; }
-          .gross-row { background-color: rgb(212, 239, 223) !important; }
-          .deduct-row { background-color: rgb(250, 219, 216) !important; }
-          .net-row { background-color: rgb(171, 235, 198) !important; }
-        }
-    </style>
+/* দাবি/কর্তন সারণি */
+.ct{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.ct th{color:#fff;padding:10px 8px;font-size:13.5px;line-height:1.35;border-bottom:0}
+.ct th small{display:block;font-weight:400;opacity:.92}
+.ct th:first-child{background:#334155}
+.ct th.h0{background:var(--p1)}.ct th.h1{background:var(--p2)}.ct th.h2{background:var(--p3)}.ct th.h3{background:var(--p4)}
+.ct td{padding:8px 10px;font-size:14px}
+.ct tbody tr:nth-child(even) td{background:#f8fafc}
+.ct tr.void td{color:#94a3b8}
+.ct s,.pc s{text-decoration-thickness:2px;color:#94a3b8}
+.ct tr.hl td{background:#dbeafe!important;color:#1e3a8a;font-weight:700}
+.ct tr.sec td{background:#ffe4e6!important;color:#9f1239;font-weight:700;text-align:left}
+.ct tr.ded2 td{background:#fee2e2!important;color:#991b1b;font-weight:700}
+.ct tr.net td{background:linear-gradient(90deg,#059669,#10b981)!important;color:#fff;font-weight:700;font-size:15px}
+.ct td.c0{color:#1d4ed8}.ct td.c1{color:#0f766e}.ct td.c2{color:#b45309}.ct td.c3{color:#6d28d9}
+.ct tr.hl td[class],.ct tr.net td[class],.ct tr.ded2 td[class]{color:inherit}
+.claim-cards{display:none;gap:14px}
+.pc{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 3px 10px rgba(15,23,42,.06)}
+.pc-h{color:#fff;padding:10px 14px;font-weight:700;font-size:15px}
+.pc-h small{display:block;font-weight:400;opacity:.92;font-size:12.5px}
+.pc-h.h0{background:var(--p1)}.pc-h.h1{background:var(--p2)}.pc-h.h2{background:var(--p3)}.pc-h.h3{background:var(--p4)}
+.pc-r{display:flex;justify-content:space-between;gap:10px;padding:8px 14px;border-top:1px solid var(--line);font-size:14px}
+.pc-r span:last-child{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pc-r.void{color:#94a3b8}
+.pc-r.hl{background:#dbeafe;color:#1e3a8a;font-weight:700}
+.pc-r.sec{background:#ffe4e6;color:#9f1239;font-weight:700}
+.pc-r.ded2{background:#fee2e2;color:#991b1b;font-weight:700}
+.pc-r.net{background:linear-gradient(90deg,#059669,#10b981);color:#fff;font-weight:700;font-size:16px}
+
+.prepared{margin-top:24px;padding:16px;border-radius:14px;text-align:center;font-size:14px;color:#fff;background:linear-gradient(120deg,#4338ca,#0d9488)}
+#printSheet{display:none}
+
+/* ডেস্কটপ / মোবাইল আলাদা ভিউ */
+@media(max-width:760px){
+  .wrap{padding:12px 10px 40px}
+  .hero{padding:16px 14px;border-radius:14px}
+  .card{padding:14px}
+  .row{grid-template-columns:1fr;gap:12px}
+  .row .wide{grid-column:auto}
+  .checks{grid-template-columns:1fr}
+  .claim-table{display:none}
+  .claim-cards{display:grid}
+  .btn-print{width:100%;justify-content:center}
+  .head-row{flex-direction:column;align-items:stretch}
+  .result b{font-size:26px}
+  select{text-overflow:ellipsis}
+}
+
+/* প্রিন্ট ভিউ */
+@media print{
+  @page{size:A4;margin:10mm}
+  html,body{background:#fff!important;color:#000!important}
+  .wrap>*:not(#printSheet){display:none!important}
+  .wrap{max-width:none;padding:0}
+  #printSheet{display:block!important}
+  #printSheet .prep{text-align:center;border:2px solid #4338ca;background:#eef2ff!important;border-radius:8px;padding:8px;margin-bottom:10px;font-size:13px;line-height:1.5;color:#312e81}
+  #printSheet .prep b{font-size:15px}
+  #printSheet h2{text-align:center;font-size:17px;margin:6px 0;color:#1d4ed8;background:none}
+  #printSheet h3{font-size:14px;margin:12px 0 6px}
+  #printSheet .sum{font-size:12px;margin:0 0 8px;line-height:1.55;background:#f0fdfa!important;border:1px solid #99f6e4;border-radius:6px;padding:6px 8px}
+  #printSheet .ct{font-size:11px;border-radius:0}
+  #printSheet .ct th{padding:4px 5px;font-size:11px}
+  #printSheet .ct td{padding:3px 6px;font-size:11px;border-top:1px solid #cbd5e1}
+  #printSheet .foot{margin-top:10px;font-size:11px;text-align:center;color:#475569}
+}
+
+.sub-h{margin:16px 0 4px;font-weight:700;color:#b45309}
+
+.big{margin-top:14px;padding:18px;border-radius:14px;background:linear-gradient(120deg,#059669,#10b981);color:#fff;text-align:center;box-shadow:0 6px 18px rgba(5,150,105,.3)}
+.big small{display:block;opacity:.92;font-size:14px}
+.big b{display:block;font:700 clamp(30px,8vw,44px)/1.2 "Noto Serif Bengali",Georgia,serif}
+.lst{border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:620px;margin:0 auto}
+.lst .pc-r:first-child{border-top:0}
+.row2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:760px){.row2{grid-template-columns:1fr}}
+@media print{#printSheet .lst{max-width:none;border-radius:0}#printSheet .pc-r{padding:4px 8px;font-size:12px}#printSheet .big{margin-top:10px;padding:10px}#printSheet .big b{font-size:26px}}
+
+.btn-reset{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:#fff;color:#be123c;border:2px solid #fda4af;border-radius:10px;font:600 15px "Noto Sans Bengali",system-ui,sans-serif;cursor:pointer}
+.btn-reset:hover{background:#ffe4e6}
+@media(max-width:760px){.c-in .head-row{flex-direction:row;align-items:center}.c-in .head-row h2{margin:0}.btn-reset{padding:8px 14px}}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.rules{margin:14px 0 0;padding:12px 14px;background:linear-gradient(120deg,#eef2ff,#f0fdfa);border:1px solid #c7d2fe;border-radius:12px;font-size:14px}
+.rules b{color:#3730a3}
+.rules .chips{margin-top:6px}
+.rules .chip{background:#fff;border-color:#c7d2fe;color:#3730a3}
+.rules .chip.opt{border-color:#fde68a;background:#fffbeb;color:#92400e}
+.sect{margin:16px 0 6px;font-weight:700;color:#b45309}
+.chk.dis{opacity:.5;cursor:not-allowed}
+.sub-sel{margin:8px 0 0}
+.empty{padding:18px;text-align:center;color:var(--mute);background:#f8fafc;border:1.5px dashed #c7d2fe;border-radius:12px}
+.big{margin-top:14px;padding:18px;border-radius:14px;background:linear-gradient(120deg,#059669,#10b981);color:#fff;text-align:center;box-shadow:0 6px 18px rgba(5,150,105,.3)}
+.big small{display:block;opacity:.92;font-size:14px}
+.big b{display:block;font:700 clamp(30px,8vw,44px)/1.2 "Noto Serif Bengali",Georgia,serif}
+.lst{border:1px solid var(--line);border-radius:12px;overflow:hidden;max-width:620px;margin:0 auto}
+.lst .pc-r:first-child{border-top:0}
+.pc-r.void{color:#94a3b8}
+@media print{#printSheet .lst{max-width:none;border-radius:0}#printSheet .pc-r{padding:4px 8px;font-size:12px}#printSheet .big{margin-top:10px;padding:10px}#printSheet .big b{font-size:26px}}
+</style>
 </head>
 <body>
+<div class="wrap">
+  <!-- হোম বাটন -->
+  <div class="top-bar">
+    <a href="https://manik-rmch.github.io/dashboard" class="btn-home"><i class="fa-solid fa-house"></i> হোম</a>
+  </div>
+  <div class="hero">
+    <h1>৮ম জাতীয় বেতনস্কেল ২০১৫: বেতন ক্যালকুলেটর</h1>
+    <p class="sub">গ্রেড ও ৮ম স্কেলের বেতন বেছে নিন, ভাতাসহ হাতে কত পাবেন দেখুন।</p>
+  </div>
 
-<div class="calculator-card">
-	<!-- হোম বাটন -->
-    <div class="top-bar">
-      <a href="https://manik-rmch.github.io/dashboard" class="btn-home">
-        <i class="fa-solid fa-house"></i> হোম
-      </a>
+  <div class="card c-in">
+    <div class="head-row"><h2>আপনার তথ্য</h2><button type="button" class="btn-reset" id="resetBtn"><i class="fa-solid fa-rotate-left"></i> রিসেট</button></div>
+    <div class="row">
+      <div><label for="grade">গ্রেড</label><select id="grade" autocomplete="off"></select></div>
+      <div><label for="sal">৮ম স্কেলের মূল বেতন (ধাপ)</label><select id="sal" autocomplete="off" disabled></select></div>
     </div>
 
-    <div class="author-info">
-        <strong>প্রস্তুতকারক:</strong> মোঃ মানিক<br>
-        গাড়ি চালক, রাজশাহী মেডিকেল কলেজ হাসপাতাল, রাজশাহী।<br>
-        <strong>মোবাইল:</strong> ০১৭২৯-৮১৫২৯১
+    <div class="sect">বাড়ি ভাড়া, শিক্ষা ও কর্তন</div>
+    <div class="row">
+      <div class="wide"><label for="aarea">কর্মস্থল (বাড়ি ভাড়ার জন্য)</label><select id="aarea" autocomplete="off">
+        <option value="city" selected>চট্টগ্রাম, খুলনা, রাজশাহী, সিলেট, বরিশাল, রংপুর, নারায়ণগঞ্জ ও গাজীপুর সিটি কর্পোরেশন</option>
+        <option value="dhaka">ঢাকা সিটি কর্পোরেশন</option>
+        <option value="savar">সাভার পৌর এলাকা</option>
+        <option value="other">অন্যান্য স্থান</option></select></div>
+      <div><label for="akids">সন্তান (শিক্ষা সহায়ক ভাতা)</label><select id="akids" autocomplete="off">
+        <option value="0">কোন সন্তান নেই</option>
+        <option value="1">১ সন্তান (৫০০ টাকা)</option>
+        <option value="2">২ বা ততোধিক (১০০০ টাকা)</option></select></div>
+      <div><label for="agpf">জিপিএফ কর্তন (টাকা)</label><input id="agpf" inputmode="numeric" value="0" autocomplete="off"></div>
     </div>
 
-    <h2>স্যালারি ক্যালকুলেটর</h2>
-    
-    <div class="form-group">
-    <label for="basicPay">মূল বেতন (Basic Pay):</label>
-    <input type="text" id="basicPay" inputmode="numeric" placeholder="যেমন: ১০১৯০ বা ৯৭৭০" oninput="this.value = convertToBanglaDigit(this.value)">
-</div>
-
-    <div class="form-group">
-        <label for="location">কর্মস্থলের এলাকা (বাড়ি ভাড়ার জন্য):</label>
-        <select id="location">
-            <option value="dhaka">ঢাকা সিটি কর্পোরেশন এলাকা</option>
-            <option value="other_city" selected>চট্টগ্রাম, খুলনা, রাজশাহী, সিলেট, বরিশাল, রংপুর, নারায়ণগঞ্জ, গাজীপুর ও সাভার পৌর এলাকা</option>
-            <option value="other_places">অন্যান্য স্থান (জেলা/উপজেলা)</option>
-        </select>
+    <div class="sect">প্রযোজ্য হলে টিক দিন</div>
+    <div class="checks">
+      <label class="chk"><input type="checkbox" id="aquar"> সরকারি বাসস্থানে থাকি (বাড়ি ভাড়া নেই)</label>
+      <label class="chk" id="mealL"><input type="checkbox" id="ameal"> প্রতিষ্ঠান থেকে লাঞ্চ/বিনামূল্যে দুপুরের খাবার পাই (টিফিন নেই)</label>
+      <label class="chk"><input type="checkbox" id="awash"> ধোলাই ভাতা প্রযোজ্য (১০০ টাকা)</label>
+      <label class="chk"><input type="checkbox" id="awork"> চলতি/অতিরিক্ত দায়িত্ব পালন করছি (কার্যভার: ১০%, সর্বোচ্চ ১৫০০)</label>
+      <label class="chk"><input type="checkbox" id="ahillc"> পাহাড়ি ভাতা প্রযোজ্য (২০%)</label>
+      <label class="chk"><input type="checkbox" id="adom"> ডোমেস্টিক এইড এলাউন্স (প্রাধিকারভুক্ত, ৩০০০ টাকা)</label>
     </div>
+    <div class="sub-sel" id="hillW" hidden><label for="ahill">পাহাড়ি ভাতার এলাকা</label><select id="ahill" autocomplete="off">
+      <option value="h1">পার্বত্য জেলা সদর/সদর উপজেলা (সর্বোচ্চ ৩০০০)</option>
+      <option value="h2">পার্বত্য অন্যান্য উপজেলা (সর্বোচ্চ ৫০০০)</option></select></div>
+  </div>
 
-    <div class="form-group">
-        <label for="children">সন্তানের সংখ্যা (শিক্ষা ভাতার জন্য):</label>
-        <select id="children">
-            <option value="0" selected>কোন সন্তান নেই (০ টাকা)</option>
-            <option value="1">১ সন্তান (৫০০ টাকা)</option>
-            <option value="2">২ বা ততোধিক সন্তান (১০০০ টাকা)</option>
-        </select>
+  <div class="card c-claim">
+    <div class="head-row"><h2>মাসিক বেতন বিবরণী</h2><div class="btns"><button type="button" class="btn-print" id="printBtn" onclick="window.print()" hidden><i class="fa-solid fa-print"></i> প্রিন্ট</button></div></div>
+    <div class="empty" id="empty">প্রথমে গ্রেড ও বেতন বেছে নিন।</div>
+    <div id="res" hidden>
+      <div class="lst" id="lst"></div>
+      <div class="big"><small>নীট প্রদেয় বেতন (হাতে পাবেন)</small><b id="netBig"></b></div>
     </div>
+  </div>
 
-    <div class="form-group">
-        <label for="washing">ধোলাই ভাতা (ইউনিফর্ম প্রাপ্তদের জন্য):</label>
-        <select id="washing">
-            <option value="0" selected>প্রযোজ্য নয় (০ টাকা)</option>
-            <option value="100">প্রযোজ্য (১০০ টাকা)</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-    <label for="gpf">জিপিএফ কর্তন (টাকা):</label>
-    <input type="text" id="gpf" inputmode="numeric" placeholder="জিপিএফ চাঁদা (যেমন: ০ বা ২৪০০)" oninput="this.value = convertToBanglaDigit(this.value)">
-</div>
-
-    <button class="btn-calc" onclick="calculateSalary()">বেতন হিসাব করুন</button>
-
-    <div class="result-box" id="resultBox">
-        <h3 style="text-align:center; color:#2c3e50; margin-bottom:15px;">বেতনের বিবরণী</h3>
-        <table class="result-table">
-            <tr class="section-header">
-                <th colspan="2">দাবি অংশ (ভাতাদি)</th>
-            </tr>
-            <tr>
-                <td>মূল বেতন:</td>
-                <td id="resBasic">০.০০ টাকা</td>
-            </tr>
-            <tr>
-                <td>বাড়ি ভাড়া ভাতা:</td>
-                <td id="resHR">০.০০ টাকা</td>
-            </tr>
-            <tr>
-                <td>চিকিৎসা ভাতা:</td>
-                <td id="resMedical">০.০০ টাকা</td>
-            </tr>
-            <tr>
-                <td>টিফিন ভাতা:</td>
-                <td id="resTiffin">০.০০ টাকা</td>
-            </tr>
-            <tr>
-                <td>যাতায়াত ভাতা:</td>
-                <td id="resConveyance">০.০০ টাকা</td>
-            </tr>
-            <tr>
-                <td>বিশেষ সুবিধা:</td>
-                <td id="resSpecial">০.০০ টাকা</td>
-            </tr>
-            <tr>
-                <td>শিক্ষা সহায়কা ভাতা:</td>
-                <td id="resEducation">০.০০ টাকা</td>
-            </tr>
-            <tr>
-                <td>ধোলাই ভাতা:</td>
-                <td id="resWashing">০.০০ টাকা</td>
-            </tr>
-            <tr class="gross-row">
-                <td>মোট দাবি (Gross Salary):</td>
-                <td id="resGross">০.০০ টাকা</td>
-            </tr>
-            <tr class="section-header">
-                <th colspan="2">কর্তন অংশ</th>
-            </tr>
-            <tr>
-                <td>জিপিএফ (GPF):</td>
-                <td id="resGPF">০.০০ টাকা</td>
-            </tr>
-            <tr>
-                <td>কল্যাণ তহবিল:</td>
-                <td id="resKallyan">০.০০ টাকা</td>
-            </tr>
-            <tr>
-                <td>স্ট্যাম্প ডিউটি:</td>
-                <td id="resStamp">১০.০০ টাকা</td>
-            </tr>
-            <tr class="deduct-row">
-                <td>মোট কর্তন:</td>
-                <td id="resDeduction">০.০০ টাকা</td>
-            </tr>
-            <tr class="net-row">
-                <td>নীট প্রদেয় বেতন (হাতে পাবেন):</td>
-                <td id="resNet">০.০০ টাকা</td>
-            </tr>
-        </table>
-
-        <button class="btn-print" onclick="printSalarySlip()">🖨️ পে-স্লিপ প্রিন্ট / PDF ডাউনলোড করুন</button>
-    </div>
+  <footer class="prepared">প্রস্তুতকারক: মোঃ মানিক<br>গাড়ি চালক, রাজশাহী মেডিকেল কলেজ হাসপাতাল, রাজশাহী।<br>মোবাইল: ০১৭২৯-৮১৫২৯১</footer>
+  <div id="printSheet"></div>
 </div>
 
 <script>
-// ইংরেজি সংখ্যাকে বাংলা সংখ্যায় রূপান্তর
-function convertToBanglaDigit(str) {
-    if (str === null || str === undefined) return '';
-    const banglaDigits = {'0':'০', '1':'১', '2':'২', '3':'৩', '4':'৪', '5':'৫', '6':'৬', '7':'৭', '8':'৮', '9':'৯'};
-    return str.toString().replace(/[0-9]/g, function(w) {
-        return banglaDigits[w];
-    });
+const S8={"1":[78000],"2":[66000,68480,71050,73720,76490],"3":[56500,58760,61120,63570,66120,68770,71530,74400],"4":[50000,52000,54080,56250,58500,60840,63280,65820,68460,71200],"5":[43000,44940,46970,49090,51300,53610,56030,58560,61200,63960,66840,69850],"6":[35500,37280,39150,41110,43170,45330,47600,49980,52480,55110,57870,60770,63810,67010],"7":[29000,30450,31980,33580,35260,37030,38890,40840,42890,45040,47300,49670,52160,54770,57510,60390,63410],"8":[23000,24150,25360,26630,27970,29370,30840,32390,34010,35720,37510,39390,41360,43430,45610,47900,50300,52820,55470],"9":[22000,23100,24260,25480,26760,28100,29510,30990,32540,34170,35880,37680,39570,41550,43630,45820,48120,50530,53060],"10":[16000,16800,17640,18530,19460,20440,21470,22550,23680,24870,26120,27430,28810,30260,31780,33370,35040,36800,38640],"11":[12500,13130,13790,14480,15210,15980,16780,17620,18510,19440,20420,21450,22530,23660,24850,26100,27410,28790,30230],"12":[11300,11870,12470,13100,13760,14450,15180,15940,16740,17580,18460,19390,20360,21380,22450,23580,24760,26000,27300],"13":[11000,11550,12130,12740,13380,14050,14760,15500,16280,17100,17960,18860,19810,20810,21860,22960,24110,25320,26590],"14":[10200,10710,11250,11820,12420,13050,13710,14400,15120,15880,16680,17520,18400,19320,20290,21310,22380,23500,24680],"15":[9700,10190,10700,11240,11810,12410,13040,13700,14390,15110,15870,16670,17510,18390,19310,20280,21300,22370,23490],"16":[9300,9770,10260,10780,11320,11890,12490,13120,13780,14470,15200,15960,16760,17600,18480,19410,20390,21410,22490],"17":[9000,9450,9930,10430,10960,11510,12090,12700,13340,14010,14720,15460,16240,17060,17920,18820,19770,20760,21800],"18":[8800,9240,9710,10200,10710,11250,11820,12420,13050,13710,14400,15120,15880,16680,17520,18400,19320,20290,21310],"19":[8500,8930,9380,9850,10350,10870,11420,12000,12600,13230,13900,14600,15330,16100,16910,17760,18650,19590,20570],"20":[8250,8670,9110,9570,10050,10560,11090,11650,12240,12860,13510,14190,14900,15650,16440,17270,18140,19050,20010]};
+const $=id=>document.getElementById(id);
+const bn=n=>Math.round(n).toLocaleString('bn-BD',{maximumFractionDigits:0});
+// পয়সা থাকলে ২ ঘর, না থাকলে পূর্ণ সংখ্যা; রাউন্ড করা হয় না
+const r2=x=>Math.round(x*100)/100;
+const bnf=n=>{const r=r2(n);return r.toLocaleString('bn-BD',{minimumFractionDigits:Number.isInteger(r)?0:2,maximumFractionDigits:2});};
+const toEn=s=>String(s).replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/[^0-9]/g,'');
+function initGrade(){
+  $('grade').innerHTML='<option value="">— গ্রেড বাছুন —</option>';
+  for(let g=1;g<=20;g++)$('grade').add(new Option(bn(g)+' নং গ্রেড',g));
+  $('grade').value='';
 }
-
-// বাংলা সংখ্যাকে ইংরেজি সংখ্যায় রূপান্তর (গাণিতিক হিসাবের জন্য)
-function convertToEngDigit(str) {
-    if (!str) return '0';
-    const engDigits = {'০':'0', '১':'1', '২':'2', '৩':'3', '৪':'4', '৫':'5', '৬':'6', '৭':'7', '৮':'8', '৯':'9'};
-    return str.toString().replace(/[০-৯]/g, function(w) {
-        return engDigits[w];
-    });
+function fillSal(){
+  const g=$('grade').value;
+  if(!g){$('sal').innerHTML='<option value="">— আগে গ্রেড বাছুন —</option>';$('sal').disabled=true;return;}
+  $('sal').disabled=false;
+  $('sal').innerHTML='<option value="">— বেতন বাছুন —</option>'+S8[g].map(v=>'<option value="'+v+'">'+bn(v)+'</option>').join('');
+  $('sal').value='';
 }
-
-// ফরমেটেড সংখ্যা তৈরি করার ফাংশন
-function formatBanglaAmount(amount) {
-    let formatted = amount.toFixed(2); // ২ দশমিক ঘর পর্যন্ত
-    return convertToBanglaDigit(formatted) + " টাকা";
+// ৮ম গেজেট ১৭(৭): বাড়ি ভাড়া (১ জুলাই ২০১৬ থেকে)
+function rent(b,col){
+  const T=[[9700,[65,5600],[55,5000],[50,4500]],[16000,[60,6400],[50,5400],[45,4800]],[35500,[55,9600],[45,8000],[40,7000]],[1e12,[50,19500],[40,16000],[35,13800]]];
+  const r=T.find(x=>b<=x[0])[col+1];return Math.max(b*r[0]/100,r[1]);
 }
-
-function calculateSalary() {
-    let rawBasic = document.getElementById('basicPay').value;
-    let rawGpf = document.getElementById('gpf').value;
-
-    let basic = parseFloat(convertToEngDigit(rawBasic)) || 0;
-    let location = document.getElementById('location').value;
-    let children = parseInt(document.getElementById('children').value) || 0;
-    let washing = parseFloat(document.getElementById('washing').value) || 0;
-    let gpf = parseFloat(convertToEngDigit(rawGpf)) || 0;
-
-    if (basic <= 0) {
-        alert("অনুগ্রহ করে সঠিক মূল বেতন লিখুন।");
-        return;
-    }
-
-    // বাড়ি ভাড়া হিসাব
-    let hr = 0;
-
-    if (basic <= 9700) {
-        if (location === 'dhaka') {
-            hr = Math.max(basic * 0.65, 5600);
-        } else if (location === 'other_city') {
-            hr = Math.max(basic * 0.55, 5000);
-        } else {
-            hr = Math.max(basic * 0.50, 4500);
-        }
-    } else if (basic <= 16000) {
-        if (location === 'dhaka') {
-            hr = Math.max(basic * 0.60, 6400);
-        } else if (location === 'other_city') {
-            hr = Math.max(basic * 0.50, 5400);
-        } else {
-            hr = Math.max(basic * 0.45, 4800);
-        }
-    } else if (basic <= 35500) {
-        if (location === 'dhaka') {
-            hr = Math.max(basic * 0.55, 9600);
-        } else if (location === 'other_city') {
-            hr = Math.max(basic * 0.45, 8000);
-        } else {
-            hr = Math.max(basic * 0.40, 7000);
-        }
-    } else {
-        if (location === 'dhaka') {
-            hr = Math.max(basic * 0.50, 19500);
-        } else if (location === 'other_city') {
-            hr = Math.max(basic * 0.40, 16000);
-        } else {
-            hr = Math.max(basic * 0.35, 13800);
-        }
-    }
-
-    let medical = 1500;
-    let tiffin = 200;
-    let conveyance = 300;
-    let special = Math.max(basic * 0.15, 1500);
-
-    let education = 0;
-    if (children === 1) education = 500;
-    else if (children >= 2) education = 1000;
-
-    let gross = basic + hr + medical + tiffin + conveyance + special + education + washing;
-
-    let kallyan = basic * 0.01;
-    let stamp = 10;
-    let totalDeduction = gpf + kallyan + stamp;
-
-    let net = gross - totalDeduction;
-
-    // ফলাফলের সকল ঘর সম্পূর্ণ বাংলায় প্রদর্শন
-    document.getElementById('resBasic').innerText = formatBanglaAmount(basic);
-    document.getElementById('resHR').innerText = formatBanglaAmount(hr);
-    document.getElementById('resMedical').innerText = formatBanglaAmount(medical);
-    document.getElementById('resTiffin').innerText = formatBanglaAmount(tiffin);
-    document.getElementById('resConveyance').innerText = formatBanglaAmount(conveyance);
-    document.getElementById('resSpecial').innerText = formatBanglaAmount(special);
-    document.getElementById('resEducation').innerText = formatBanglaAmount(education);
-    document.getElementById('resWashing').innerText = formatBanglaAmount(washing);
-    document.getElementById('resGross').innerText = formatBanglaAmount(gross);
-
-    document.getElementById('resGPF').innerText = formatBanglaAmount(gpf);
-    document.getElementById('resKallyan').innerText = formatBanglaAmount(kallyan);
-    document.getElementById('resStamp').innerText = formatBanglaAmount(stamp);
-    document.getElementById('resDeduction').innerText = formatBanglaAmount(totalDeduction);
-    document.getElementById('resNet').innerText = formatBanglaAmount(net);
-
-    document.getElementById('resultBox').style.display = 'block';
+const WF_PCT=1,WF_MAX=150,STAMP=10;
+const COL={dhaka:0,city:1,savar:1,other:2};
+const CITYCORP={dhaka:1,city:1,savar:0,other:0};
+const ENT={1:1000,2:900,3:600}; // আপ্যায়ন ভাতা: সচিব / অতিরিক্ত সচিব / যুগ্মসচিব পদ
+function sp(g){return g<=9?10:15;}
+function calc(){
+  const g=+$('grade').value,b=+$('sal').value;
+  const tf=g>=11;
+  $('mealL').classList.toggle('dis',!tf&&!!g);$('ameal').disabled=(!tf&&!!g);if(!tf)$('ameal').checked=false;
+  $('hillW').hidden=!$('ahillc').checked;
+  const ok=g&&b;
+  $('empty').hidden=!!ok;$('res').hidden=!ok;$('printBtn').hidden=!ok;
+  if(!ok){$('printSheet').innerHTML='';return;}
+  const area=$('aarea').value,k=+$('akids').value,gpf=+toEn($('agpf').value)||0;
+  const items=[];
+  if(!$('aquar').checked)items.push(['বাড়ি ভাড়া ভাতা',r2(rent(b,COL[area]))]);
+  items.push(['চিকিৎসা ভাতা',1500]);
+  if(k)items.push(['শিক্ষা সহায়ক ভাতা',k*500]);
+  items.push(['বিশেষ সুবিধা',Math.max(r2(b*sp(g)/100),1500)]);
+  if(tf&&!$('ameal').checked)items.push(['টিফিন ভাতা',200]);
+  if(tf&&CITYCORP[area])items.push(['যাতায়াত ভাতা',300]);
+  if(ENT[g])items.push(['আপ্যায়ন ভাতা',ENT[g]]);
+  if($('awash').checked)items.push(['ধোলাই ভাতা',100]);
+  if($('awork').checked)items.push(['কার্যভার ভাতা',Math.min(r2(b*.1),1500)]);
+  if($('ahillc').checked)items.push(['পাহাড়ি ভাতা',Math.min(r2(b*.2),$('ahill').value==='h1'?3000:5000)]);
+  if($('adom').checked)items.push(['ডোমেস্টিক এইড এলাউন্স',3000]);
+  const al=r2(items.reduce((t,x)=>t+x[1],0)),gross=r2(b+al);
+  const wf=Math.min(r2(b*WF_PCT/100),WF_MAX),ded=r2(gpf+wf+STAMP),net=r2(gross-ded);
+  const R=(l,v,c)=>'<div class="pc-r'+(c?' '+c:'')+'"><span>'+l+'</span><span>'+bnf(v)+'</span></div>';
+  const H=R('মূল বেতন',b)+items.map(x=>R(x[0],x[1])).join('')+R('মোট দাবি (Gross Salary)',gross,'hl')
+    +'<div class="pc-r sec"><span>কর্তন অংশ</span></div>'+R('জিপিএফ (GPF)',gpf)+R('কল্যাণ তহবিল',wf)+R('স্ট্যাম্প ডিউটি',STAMP)+R('মোট কর্তন',ded,'ded2')+R('নীট প্রদেয় বেতন (হাতে পাবেন)',net,'net');
+  $('lst').innerHTML=H;
+  $('netBig').textContent='৳ '+bnf(net);
+  $('printSheet').innerHTML='<div class="prep"><b>প্রস্তুতকারক: মোঃ মানিক</b><br>গাড়ি চালক, রাজশাহী মেডিকেল কলেজ হাসপাতাল, রাজশাহী।<br>মোবাইল: ০১৭২৯-৮১৫২৯১</div>'
+    +'<h2>বেতনের বিবরণী (৮ম জাতীয় বেতনস্কেল, ২০১৫)</h2>'
+    +'<p class="sum">গ্রেড: '+bn(g)+' | মূল বেতন: '+bnf(b)+' | কর্মস্থল: '+$('aarea').selectedOptions[0].text+'</p>'
+    +'<div class="lst">'+H+'</div><div class="big"><small>নীট প্রদেয় বেতন (হাতে পাবেন)</small><b>৳ '+bnf(net)+'</b></div>'
+    +'<div class="foot">৮ম গেজেট অনুযায়ী ভাতার হার। কল্যাণ তহবিল ও স্ট্যাম্প ডিউটি ব্যবহারকারী-নির্ধারিত।</div>';
 }
-
-function printSalarySlip() {
-    let oldTitle = document.title;
-    document.title = "Pay_Slip_Statement";
-    window.print();
-    document.title = oldTitle;
+function resetAll(){
+  initGrade();fillSal();
+  $('aarea').value='city';$('akids').value='0';$('agpf').value='0';$('ahill').value='h1';
+  ['aquar','ameal','awash','awork','ahillc','adom'].forEach(id=>$(id).checked=false);
+  calc();window.scrollTo({top:0,behavior:'smooth'});
 }
+$('grade').addEventListener('input',()=>{fillSal();calc()});
+['sal','aarea','akids','agpf','aquar','ameal','awash','awork','ahillc','ahill','adom'].forEach(id=>$(id).addEventListener('input',calc));
+$('resetBtn').addEventListener('click',resetAll);
+window.addEventListener('pageshow',e=>{if(e.persisted)resetAll();});
+initGrade();fillSal();calc();
 </script>
-
 </body>
 </html>
