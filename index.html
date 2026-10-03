@@ -53,7 +53,7 @@ th:first-child,td:first-child{text-align:left}
 .note{padding:12px 14px;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:10px;font-size:14px}
 .head-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 .head-row h2{margin:0}
-.btn-print{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:linear-gradient(120deg,#4f46e5,#7c3aed);color:#fff;border:0;border-radius:10px;font:600 15px "Noto Sans Bengali",system-ui,sans-serif;cursor:pointer;box-shadow:0 4px 12px rgba(79,70,229,.35)}
+.btn-print{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:linear-gradient(120deg,#4f46e5,#7c3aed);color:#fff;border:0;border-radius:9px;font:600 13.5px "Noto Sans Bengali",system-ui,sans-serif;cursor:pointer;box-shadow:0 3px 8px rgba(79,70,229,.3)}
 .btn-print:hover{transform:translateY(-2px)}
 
 /* দাবি/কর্তন সারণি */
@@ -98,7 +98,8 @@ th:first-child,td:first-child{text-align:left}
   .checks{grid-template-columns:1fr}
   .claim-table{display:none}
   .claim-cards{display:grid}
-  .btn-print{width:100%;justify-content:center}
+  .c-claim .head-row{flex-direction:row;align-items:center}
+  .c-claim .head-row h2{margin:0}
   .head-row{flex-direction:column;align-items:stretch}
   .result b{font-size:26px}
   select{text-overflow:ellipsis}
@@ -133,9 +134,9 @@ th:first-child,td:first-child{text-align:left}
 @media(max-width:760px){.row2{grid-template-columns:1fr}}
 @media print{#printSheet .lst{max-width:none;border-radius:0}#printSheet .pc-r{padding:4px 8px;font-size:12px}#printSheet .big{margin-top:10px;padding:10px}#printSheet .big b{font-size:26px}}
 
-.btn-reset{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:#fff;color:#be123c;border:2px solid #fda4af;border-radius:10px;font:600 15px "Noto Sans Bengali",system-ui,sans-serif;cursor:pointer}
+.btn-reset{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:#fff;color:#be123c;border:1.5px solid #fda4af;border-radius:9px;font:600 13.5px "Noto Sans Bengali",system-ui,sans-serif;cursor:pointer}
 .btn-reset:hover{background:#ffe4e6}
-@media(max-width:760px){.c-in .head-row{flex-direction:row;align-items:center}.c-in .head-row h2{margin:0}.btn-reset{padding:8px 14px}}
+@media(max-width:760px){.c-in .head-row{flex-direction:row;align-items:center}.c-in .head-row h2{margin:0}.btn-reset{padding:5px 10px}}
 .btns{display:flex;gap:10px;flex-wrap:wrap}
 .rules{margin:14px 0 0;padding:12px 14px;background:linear-gradient(120deg,#eef2ff,#f0fdfa);border:1px solid #c7d2fe;border-radius:12px;font-size:14px}
 .rules b{color:#3730a3}
@@ -153,6 +154,17 @@ th:first-child,td:first-child{text-align:left}
 .lst .pc-r:first-child{border-top:0}
 .pc-r.void{color:#94a3b8}
 @media print{#printSheet .lst{max-width:none;border-radius:0}#printSheet .pc-r{padding:4px 8px;font-size:12px}#printSheet .big{margin-top:10px;padding:10px}#printSheet .big b{font-size:26px}}
+.taxline{margin-top:14px;padding:12px 14px;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;max-width:620px;margin-left:auto;margin-right:auto}
+.taxline .trow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;color:#92400e}
+.modal{position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal[hidden]{display:none}
+.modal-box{background:#fff;border-radius:16px;padding:20px;max-width:420px;width:100%;box-shadow:0 20px 50px rgba(0,0,0,.3);text-align:center}
+.modal-box h3{margin:0 0 8px;color:#b45309}
+.mbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 8px}
+.mbtns button{padding:14px 8px;border-radius:12px;border:2px solid #c7d2fe;background:#eef2ff;color:#3730a3;font:700 17px "Noto Sans Bengali",system-ui,sans-serif;cursor:pointer}
+.mbtns button:hover{background:#4f46e5;color:#fff;border-color:#4f46e5}
+.mbtns small{display:block;font-weight:400;font-size:12px;margin-top:2px}
+@media print{.modal{display:none!important}}
 </style>
 </head>
 <body>
@@ -207,12 +219,20 @@ th:first-child,td:first-child{text-align:left}
     <div id="res" hidden>
       <div class="lst" id="lst"></div>
       <div class="big"><small>নীট প্রদেয় বেতন (হাতে পাবেন)</small><b id="netBig"></b></div>
+      <div class="taxline" id="taxline" hidden><div class="trow"><b>অগ্রিম আয়কর (স্বয়ংক্রিয়)</b><span><label for="tgen" style="display:inline;margin-right:6px">করদাতা:</label><select id="tgen" style="width:auto"><option value="m">পুরুষ (করমুক্ত ৪,০০,০০০)</option><option value="f">নারী (করমুক্ত ৪,৫০,০০০)</option></select></span></div>
+        <div class="hint" id="taxtxt"></div></div>
     </div>
   </div>
 
   <footer class="prepared">প্রস্তুতকারক: মোঃ মানিক<br>গাড়ি চালক, রাজশাহী মেডিকেল কলেজ হাসপাতাল, রাজশাহী।<br>মোবাইল: ০১৭২৯-৮১৫২৯১</footer>
   <div id="printSheet"></div>
 </div>
+
+<div id="gmodal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="gmT"><div class="modal-box">
+  <h3 id="gmT">অগ্রিম আয়কর: করদাতার ধরন</h3>
+  <p>আপনার বার্ষিক আয় করমুক্ত সীমা অতিক্রম করেছে। সঠিকভাবে কর হিসাব করতে বেছে নিন:</p>
+  <div class="mbtns"><button type="button" data-g="m">পুরুষ<small>করমুক্ত সীমা ৪,০০,০০০</small></button><button type="button" data-g="f">নারী<small>করমুক্ত সীমা ৪,৫০,০০০</small></button></div>
+</div></div>
 
 <script>
 const S8={"1":[78000],"2":[66000,68480,71050,73720,76490],"3":[56500,58760,61120,63570,66120,68770,71530,74400],"4":[50000,52000,54080,56250,58500,60840,63280,65820,68460,71200],"5":[43000,44940,46970,49090,51300,53610,56030,58560,61200,63960,66840,69850],"6":[35500,37280,39150,41110,43170,45330,47600,49980,52480,55110,57870,60770,63810,67010],"7":[29000,30450,31980,33580,35260,37030,38890,40840,42890,45040,47300,49670,52160,54770,57510,60390,63410],"8":[23000,24150,25360,26630,27970,29370,30840,32390,34010,35720,37510,39390,41360,43430,45610,47900,50300,52820,55470],"9":[22000,23100,24260,25480,26760,28100,29510,30990,32540,34170,35880,37680,39570,41550,43630,45820,48120,50530,53060],"10":[16000,16800,17640,18530,19460,20440,21470,22550,23680,24870,26120,27430,28810,30260,31780,33370,35040,36800,38640],"11":[12500,13130,13790,14480,15210,15980,16780,17620,18510,19440,20420,21450,22530,23660,24850,26100,27410,28790,30230],"12":[11300,11870,12470,13100,13760,14450,15180,15940,16740,17580,18460,19390,20360,21380,22450,23580,24760,26000,27300],"13":[11000,11550,12130,12740,13380,14050,14760,15500,16280,17100,17960,18860,19810,20810,21860,22960,24110,25320,26590],"14":[10200,10710,11250,11820,12420,13050,13710,14400,15120,15880,16680,17520,18400,19320,20290,21310,22380,23500,24680],"15":[9700,10190,10700,11240,11810,12410,13040,13700,14390,15110,15870,16670,17510,18390,19310,20280,21300,22370,23490],"16":[9300,9770,10260,10780,11320,11890,12490,13120,13780,14470,15200,15960,16760,17600,18480,19410,20390,21410,22490],"17":[9000,9450,9930,10430,10960,11510,12090,12700,13340,14010,14720,15460,16240,17060,17920,18820,19770,20760,21800],"18":[8800,9240,9710,10200,10710,11250,11820,12420,13050,13710,14400,15120,15880,16680,17520,18400,19320,20290,21310],"19":[8500,8930,9380,9850,10350,10870,11420,12000,12600,13230,13900,14600,15330,16100,16910,17760,18650,19590,20570],"20":[8250,8670,9110,9570,10050,10560,11090,11650,12240,12860,13510,14190,14900,15650,16440,17270,18140,19050,20010]};
@@ -239,10 +259,17 @@ function rent(b,col){
   const T=[[9700,[65,5600],[55,5000],[50,4500]],[16000,[60,6400],[50,5400],[45,4800]],[35500,[55,9600],[45,8000],[40,7000]],[1e12,[50,19500],[40,16000],[35,13800]]];
   const r=T.find(x=>b<=x[0])[col+1];return Math.max(b*r[0]/100,r[1]);
 }
-const WF_PCT=1,WF_MAX=150,STAMP=10;
+const WF_PCT=1,WF_MAX=150,STAMP=10,GI_PCT=0.7,GI_MAX=100; // যৌথ বিমা: গ্রেড ১–১২ এ ০.৭% (সর্বোচ্চ ১০০), গ্রেড ১৩–২০ এ কর্তন নেই
 const COL={dhaka:0,city:1,savar:1,other:2};
 const CITYCORP={dhaka:1,city:1,savar:0,other:0};
-const ENT={1:1000,2:900,3:600}; // আপ্যায়ন ভাতা: সচিব / অতিরিক্ত সচিব / যুগ্মসচিব পদ
+var taxGender=null;
+const TAX_FREE={m:400000,f:450000}; // করবর্ষ ২০২৬-২৭ ও ২০২৭-২৮ (অর্থ আইন ২০২৬)
+function taxAnnual(A,gen){ // করমুক্ত সীমার পর ৩ লাখে ১০%, ৪ লাখে ১৫%, ৫ লাখে ২০%, ২০ লাখে ২৫%, বাকি ৩০%
+  let rem=Math.max(0,A-TAX_FREE[gen]),tax=0;
+  for(const [w,rt] of [[300000,.10],[400000,.15],[500000,.20],[2000000,.25]]){const x=Math.min(rem,w);tax+=x*rt;rem-=x;if(rem<=0)break;}
+  if(rem>0)tax+=rem*.30;
+  return tax;
+}
 function sp(g){return g<=9?10:15;}
 function calc(){
   const g=+$('grade').value,b=+$('sal').value;
@@ -253,6 +280,12 @@ function calc(){
   $('empty').hidden=!!ok;$('res').hidden=!ok;$('printBtn').hidden=!ok;
   if(!ok){$('printSheet').innerHTML='';return;}
   const area=$('aarea').value,k=+$('akids').value,gpf=+toEn($('agpf').value)||0;
+  const gen=taxGender||'m';
+  const A=r2(14*b); // বার্ষিক আয় = ১২ মাসের মূল বেতন + ২টি উৎসব ভাতা
+  if(!taxGender&&A>TAX_FREE.m){$('gmodal').hidden=false;const bb=$('gmodal').querySelector('button');if(bb)bb.focus();}
+  const txA=taxAnnual(A,gen),tax=r2(txA/12);
+  $('tgen').value=gen;$('taxline').hidden=!(A>TAX_FREE.m);
+  $('taxtxt').textContent='বার্ষিক আয় (১২ মাসের মূল বেতন + ২টি উৎসব ভাতা) '+bnf(A)+' → '+(txA?'বার্ষিক কর '+bnf(txA)+', মাসে '+bnf(tax):'করমুক্ত সীমার মধ্যে, কর নেই')+'। বিনিয়োগ রেয়াত ও ন্যূনতম কর ধরা হয়নি।';
   const items=[];
   if(!$('aquar').checked)items.push(['বাড়ি ভাড়া ভাতা',r2(rent(b,COL[area]))]);
   items.push(['চিকিৎসা ভাতা',1500]);
@@ -260,32 +293,33 @@ function calc(){
   items.push(['বিশেষ সুবিধা',Math.max(r2(b*sp(g)/100),1500)]);
   if(tf&&!$('ameal').checked)items.push(['টিফিন ভাতা',200]);
   if(tf&&CITYCORP[area])items.push(['যাতায়াত ভাতা',300]);
-  if(ENT[g])items.push(['আপ্যায়ন ভাতা',ENT[g]]);
   if($('awash').checked)items.push(['ধোলাই ভাতা',100]);
   if($('awork').checked)items.push(['কার্যভার ভাতা',Math.min(r2(b*.1),1500)]);
   if($('ahillc').checked)items.push(['পাহাড়ি ভাতা',Math.min(r2(b*.2),$('ahill').value==='h1'?3000:5000)]);
   if($('adom').checked)items.push(['ডোমেস্টিক এইড এলাউন্স',3000]);
   const al=r2(items.reduce((t,x)=>t+x[1],0)),gross=r2(b+al);
-  const wf=Math.min(r2(b*WF_PCT/100),WF_MAX),ded=r2(gpf+wf+STAMP),net=r2(gross-ded);
+  const wf=Math.min(r2(b*WF_PCT/100),WF_MAX),giv=g<=12?Math.min(r2(b*GI_PCT/100),GI_MAX):0,ded=r2(gpf+wf+giv+tax+STAMP),net=r2(gross-ded);
   const R=(l,v,c)=>'<div class="pc-r'+(c?' '+c:'')+'"><span>'+l+'</span><span>'+bnf(v)+'</span></div>';
   const H=R('মূল বেতন',b)+items.map(x=>R(x[0],x[1])).join('')+R('মোট দাবি (Gross Salary)',gross,'hl')
-    +'<div class="pc-r sec"><span>কর্তন অংশ</span></div>'+R('জিপিএফ (GPF)',gpf)+R('কল্যাণ তহবিল',wf)+R('স্ট্যাম্প ডিউটি',STAMP)+R('মোট কর্তন',ded,'ded2')+R('নীট প্রদেয় বেতন (হাতে পাবেন)',net,'net');
+    +'<div class="pc-r sec"><span>কর্তন অংশ</span></div>'+R('জিপিএফ (GPF)',gpf)+R('কল্যাণ তহবিল',wf)+(g<=12?R('যৌথ বিমা',giv):'')+(tax?R('অগ্রিম আয়কর',tax):'')+R('স্ট্যাম্প ডিউটি',STAMP)+R('মোট কর্তন',ded,'ded2')+R('নীট প্রদেয় বেতন (হাতে পাবেন)',net,'net');
   $('lst').innerHTML=H;
   $('netBig').textContent='৳ '+bnf(net);
   $('printSheet').innerHTML='<div class="prep"><b>প্রস্তুতকারক: মোঃ মানিক</b><br>গাড়ি চালক, রাজশাহী মেডিকেল কলেজ হাসপাতাল, রাজশাহী।<br>মোবাইল: ০১৭২৯-৮১৫২৯১</div>'
     +'<h2>বেতনের বিবরণী (৮ম জাতীয় বেতনস্কেল, ২০১৫)</h2>'
     +'<p class="sum">গ্রেড: '+bn(g)+' | মূল বেতন: '+bnf(b)+' | কর্মস্থল: '+$('aarea').selectedOptions[0].text+'</p>'
     +'<div class="lst">'+H+'</div><div class="big"><small>নীট প্রদেয় বেতন (হাতে পাবেন)</small><b>৳ '+bnf(net)+'</b></div>'
-    +'<div class="foot">৮ম গেজেট অনুযায়ী ভাতার হার। কল্যাণ তহবিল ও স্ট্যাম্প ডিউটি ব্যবহারকারী-নির্ধারিত।</div>';
+    +'<div class="foot">৮ম গেজেট অনুযায়ী ভাতার হার। কল্যাণ তহবিল, যৌথ বিমা ও স্ট্যাম্প ডিউটি নির্ধারিত হারে; অগ্রিম আয়কর আনুমানিক স্বয়ংক্রিয় হিসাব।</div>';
 }
 function resetAll(){
   initGrade();fillSal();
-  $('aarea').value='city';$('akids').value='0';$('agpf').value='0';$('ahill').value='h1';
+  $('aarea').value='city';$('akids').value='0';$('agpf').value='0';taxGender=null;$('gmodal').hidden=true;$('ahill').value='h1';
   ['aquar','ameal','awash','awork','ahillc','adom'].forEach(id=>$(id).checked=false);
   calc();window.scrollTo({top:0,behavior:'smooth'});
 }
 $('grade').addEventListener('input',()=>{fillSal();calc()});
 ['sal','aarea','akids','agpf','aquar','ameal','awash','awork','ahillc','ahill','adom'].forEach(id=>$(id).addEventListener('input',calc));
+$('gmodal').addEventListener('click',e=>{const b=e.target.closest('button[data-g]');if(!b)return;taxGender=b.dataset.g;$('gmodal').hidden=true;calc();});
+$('tgen').addEventListener('change',()=>{taxGender=$('tgen').value;calc();});
 $('resetBtn').addEventListener('click',resetAll);
 window.addEventListener('pageshow',e=>{if(e.persisted)resetAll();});
 initGrade();fillSal();calc();
